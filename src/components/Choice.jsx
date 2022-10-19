@@ -1,7 +1,5 @@
 import he from 'he'
-
 function Choice(props) {
-    console.log(props)
     function changeColor(ended, selecetd, correct) {
         if (ended) {
             if (selecetd && !correct) {

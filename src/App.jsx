@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Question from './components/Question'
 import PlayGame from './components/PlayGame'
 import random from './assets/utils'
-
+import {ThreeDots } from 'react-loader-spinner'
 
 function App() {
   const [isStarted, setIsStarted] = useState(false)
@@ -10,10 +10,11 @@ function App() {
   const [isEnded, setIsEnded] = useState(false)
   const [result, setResult] = useState(0)
   const [newGame, setNewGame] = useState(false)
-  console.log(questionData)
+  const [isLoading, setIsLoading] = useState(false)
 
 
   useEffect(function(){
+    setIsLoading(true)
     fetch('https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple')
     .then(res => res.json())
     .then(data => {
@@ -25,7 +26,7 @@ function App() {
           answer: random([...e.incorrect_answers.map((e,index)=> (
             {id: index+1, choice: e, isCorrect: false, isSelected: false})),
             {id: 4, choice: e.correct_answer, isCorrect: true, isSelected: false}])})))
-      
+      setIsLoading(false)
       })
 
   },[newGame])
@@ -52,7 +53,6 @@ function App() {
     questionData.forEach(qs => qs.answer.forEach(choice => {
       if (choice.isCorrect && choice.isSelected) {
         setResult(prev => prev+1)
-        console.log(result)
       }
     }))
 
@@ -70,7 +70,16 @@ function App() {
   return (
   isStarted? 
     <main> 
-    {renderquestions}
+    {isLoading? <div className='results-container'> <ThreeDots 
+    height="80" 
+    width="100" 
+    radius="9" 
+    color="#293264" 
+    ariaLabel="three-dots-loading" 
+    wrapperStyle={{}} 
+    wrapperClassName="" 
+    visible={true} /> </div>
+    : renderquestions}
     <div className='results-container' >
       {isEnded && <p className='result-caption' >You scored {result}/5 correct answers! </p>}
       <button onClick={isEnded? newGmaeFunc : endGame }>{isEnded? 'Play Again' : 'Check answers'}</button>

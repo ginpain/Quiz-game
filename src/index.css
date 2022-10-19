@@ -1,7 +1,14 @@
+:root {
+  --mainColor : #293264;
+  --secondColor : #F5F7FB;
+  --mainFont: Karla, sans-serif;
+  --secondFont: Inter, sans-serif;
+  
+
+}
 html, body {
   margin: 0;
   padding: 0;
-  /* background: url('./assets/bg.JPG'); */
   background-color: #F5F7FB;
   background-size: cover;
   background-repeat: no-repeat;
@@ -40,14 +47,6 @@ html, body {
   opacity: .5;
 }
 
-:root {
-  --mainColor : #293264;
-  --secondColor : #F5F7FB;
-  --mainFont: Karla, sans-serif;
-  --secondFont: Inter, sans-serif;
-  
-
-}
 
 main, .play-start {
   width: 60%;
@@ -141,4 +140,23 @@ footer {
   font-size: 1.2rem;
   font-weight: 500;
   text-transform: capitalize;
+}
+
+
+@media  (max-width: 1000px) {
+  main {
+    height: unset;
+    width: 90%;
+  }
+  .choices {
+    flex-wrap: wrap;
+  }
+
+  .results-container {
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+    display: flex;
+    flex-direction: column;
+  }
+
 }
